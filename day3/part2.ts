@@ -15,10 +15,6 @@ async function part1(path: string) {
     .split("\n")
     .map((str) => str.split("").map((char) => Number.parseInt(char)));
 
-  let gammaRateArr: number[] = [];
-  let epsilonRateArr: number[] = [];
-  let sums: number[] = [];
-
   let o2Arr = [...binNums];
   let co2Arr = [...binNums];
 
