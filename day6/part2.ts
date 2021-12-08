@@ -18,6 +18,7 @@ async function getAnswer(path: string) {
     .trim()
     .split(",")
     .map((str) => Number.parseInt(str));
+
   fish.forEach((f) => {
     const currVal = fishMap.get(f);
     if (currVal === undefined) throw new Error("Huh?");
