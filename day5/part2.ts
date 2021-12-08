@@ -23,22 +23,32 @@ async function part1(path: string) {
   const points: Map<string, number> = new Map();
 
   vectors.forEach((vec) => {
-    const xHigh = vec.x1 > vec.x2 ? vec.x1 : vec.x2;
-    const xLow = vec.x1 < vec.x2 ? vec.x1 : vec.x2;
-    const yHigh = vec.y1 > vec.y2 ? vec.y1 : vec.y2;
-    const yLow = vec.y1 < vec.y2 ? vec.y1 : vec.y2;
+    let xFunc = (num: number) => num;
+    let yFunc = (num: number) => num;
 
-    for (let i = xLow; i <= xHigh; i++) {
-      for (let j = yLow; j <= yHigh; j++) {
-        const exist = points.get(`${i}.${j}`);
-        if (!exist) {
-          points.set(`${i}.${j}`, 1);
-          continue;
-        }
-        points.set(`${i}.${j}`, exist + 1);
+    if (vec.x1 > vec.x2) xFunc = (num: number) => num - 1;
+    if (vec.y1 > vec.y2) yFunc = (num: number) => num - 1;
+
+    if (vec.x1 < vec.x2) xFunc = (num: number) => num + 1;
+    if (vec.y1 < vec.y2) yFunc = (num: number) => num + 1;
+
+    let currX = vec.x1;
+    let currY = vec.y1;
+
+    let run = true;
+    while (run) {
+      if (currX === vec.x2 && currY === vec.y2) run = false;
+      const exist = points.get(`${currX}.${currY}`);
+      if (!exist) {
+        points.set(`${currX}.${currY}`, 1);
+      } else {
+        points.set(`${currX}.${currY}`, exist + 1);
       }
+      currX = xFunc(currX);
+      currY = yFunc(currY);
     }
   });
+
   let total = 0;
   points.forEach((point) => {
     if (point === 1) return;
