@@ -47,9 +47,6 @@ async function getAnswer(path: string) {
     const [tl] = oneFourDiff?.filter((item) => item !== middle);
     const [tr] = trBlMiddle?.filter((item) => one?.includes(item));
     const [bl] = trBlMiddle?.filter((item) => ![tr, middle].includes(item));
-    const [br] = eight?.filter(
-      (item) => ![top, tl, tr, middle, bl, bottom].includes(item)
-    );
 
     function getNumber(str: string): number {
       if (str.length === 2) return 1;
